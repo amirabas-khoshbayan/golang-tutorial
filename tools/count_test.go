@@ -20,7 +20,7 @@ func TestCount(t *testing.T) {
 		if !isEqual {
 			t.Errorf("not equel %v - %v", got, testCase.want)
 		}
-		//assert.Equalf(t, testCase.want, got, "not equel %v - %v", got, testCase.want)
+		//assert.Equalf(t, testCase.wa nt, got, "not equel %v - %v", got, testCase.want)
 	}
 
 }
