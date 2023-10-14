@@ -14,4 +14,15 @@ func main() {
 
 	//Join player to the game
 	game.Join(dog).Join(cat).Join(owl)
+
+	// Loop til there is a winner
+	var winner gamepkg.Player
+	for winner == nil {
+		//Move players
+		game.MovePlayers()
+		//Check winner
+		winner = game.CheckWinner()
+		//Print the game
+		game.Print()
+	}
 }
