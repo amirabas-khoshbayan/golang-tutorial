@@ -1,24 +1,17 @@
 package main
 
 import (
-	"fmt"
-	"golang-tutorial/shape"
+	gamepkg "golang-tutorial/game"
 )
 
-type Shape interface {
-	Area() float64
-	Name() string
-}
-
 func main() {
-	circle := shape.Circle{Radius: 2}
-	rectng := shape.Rectangle{Width: 3, Heigth: 5}
+	//Make players
+	dog := gamepkg.NewDog("Axlie")
+	cat := gamepkg.NewCat("Binky")
+	owl := gamepkg.NewOwl("Hanna")
+	//Make the game
+	game := gamepkg.NewGame(50)
 
-	PrintArea(circle)
-	PrintArea(rectng)
-
-}
-
-func PrintArea(shape Shape) {
-	fmt.Printf("Area of %s is %f\n", shape.Name(), shape.Area())
+	//Join player to the game
+	game.Join(dog).Join(cat).Join(owl)
 }
