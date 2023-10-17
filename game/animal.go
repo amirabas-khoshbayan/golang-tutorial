@@ -1,5 +1,7 @@
 package game
 
+import "fmt"
+
 /**** dog ****/
 type dog struct {
 	name  string
@@ -34,7 +36,7 @@ type cat struct {
 func NewCat(name string) *cat {
 	return &cat{
 		name:  name,
-		speed: 1,
+		speed: 5,
 		x:     0,
 	}
 }
@@ -46,6 +48,10 @@ func (c *cat) Name() string {
 }
 func (c *cat) Move() {
 	c.x += c.speed
+}
+
+func (c *cat) String() string {
+	return c.name + "is winner!"
 }
 
 /**** owl ****/
@@ -70,4 +76,7 @@ func (o *owl) Name() string {
 }
 func (o *owl) Move() {
 	o.x += o.speed
+}
+func (o *owl) String() string {
+	return fmt.Sprintf("Owl %s at %d", o.name, o.x)
 }

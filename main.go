@@ -33,5 +33,5 @@ func main() {
 	}
 
 	//Print the winner
-	fmt.Printf("%s won the game!", winner.Name())
+	fmt.Printf("%s won the game!", winner)
 }
