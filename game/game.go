@@ -47,11 +47,7 @@ func (g *Game) Print() {
 	for _, player := range g.players {
 		pos := player.Position()
 		name := player.Name()
-		repeat_count := g.fieldLength - pos + 1
-		if repeat_count < 0 {
-			repeat_count = 0
-		}
-		row := "|" + strings.Repeat(" ", pos) + name + strings.Repeat(" ", repeat_count) + "|"
+		row := "|" + strings.Repeat(" ", pos) + name + strings.Repeat(" ", g.fieldLength-pos+1) + "|"
 		fmt.Println(row)
 	}
 	fmt.Println("|" + strings.Repeat("-", g.fieldLength+6) + "|")

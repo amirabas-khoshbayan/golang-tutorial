@@ -1,7 +1,10 @@
 package main
 
 import (
+	"fmt"
 	gamepkg "golang-tutorial/game"
+	"golang-tutorial/tools"
+	"time"
 )
 
 func main() {
@@ -9,6 +12,7 @@ func main() {
 	dog := gamepkg.NewDog("Axlie")
 	cat := gamepkg.NewCat("Binky")
 	owl := gamepkg.NewOwl("Hanna")
+
 	//Make the game
 	game := gamepkg.NewGame(50)
 
@@ -23,6 +27,11 @@ func main() {
 		//Check winner
 		winner = game.CheckWinner()
 		//Print the game
+		tools.ClearTerminal()
 		game.Print()
+		time.Sleep(time.Millisecond * 250)
 	}
+
+	//Print the winner
+	fmt.Printf("%s won the game!", winner.Name())
 }

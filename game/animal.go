@@ -1,73 +1,73 @@
 package game
 
-/**** Dog ****/
-type Dog struct {
+/**** dog ****/
+type dog struct {
 	name  string
 	speed int
 	x     int
 }
 
-func NewDog(name string) *Dog {
-	return &Dog{
+func NewDog(name string) *dog {
+	return &dog{
 		name:  name,
 		speed: 2,
 		x:     0,
 	}
 }
-func (d *Dog) Position() int {
+func (d *dog) Position() int {
 	return d.x
 }
-func (d *Dog) Name() string {
+func (d *dog) Name() string {
 	return d.name
 }
-func (d *Dog) Move() {
+func (d *dog) Move() {
 	d.x += d.speed
 }
 
-/**** Cat ****/
-type Cat struct {
+/**** cat ****/
+type cat struct {
 	name  string
 	speed int
 	x     int
 }
 
-func NewCat(name string) *Cat {
-	return &Cat{
+func NewCat(name string) *cat {
+	return &cat{
 		name:  name,
 		speed: 1,
 		x:     0,
 	}
 }
-func (c *Cat) Position() int {
+func (c *cat) Position() int {
 	return c.x
 }
-func (c *Cat) Name() string {
+func (c *cat) Name() string {
 	return c.name
 }
-func (c *Cat) Move() {
+func (c *cat) Move() {
 	c.x += c.speed
 }
 
-/**** Owl ****/
-type Owl struct {
+/**** owl ****/
+type owl struct {
 	name  string
 	speed int
 	x     int
 }
 
-func NewOwl(name string) *Owl {
-	return &Owl{
+func NewOwl(name string) *owl {
+	return &owl{
 		name:  name,
 		speed: 3,
 		x:     0,
 	}
 }
-func (o *Owl) Position() int {
+func (o *owl) Position() int {
 	return o.x
 }
-func (o *Owl) Name() string {
+func (o *owl) Name() string {
 	return o.name
 }
-func (o *Owl) Move() {
+func (o *owl) Move() {
 	o.x += o.speed
 }
