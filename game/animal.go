@@ -14,6 +14,15 @@ func NewDog(name string) *Dog {
 		x:     0,
 	}
 }
+func (d *Dog) Position() int {
+	return d.x
+}
+func (d *Dog) Name() string {
+	return d.name
+}
+func (d *Dog) Move() {
+	d.x += d.speed
+}
 
 /**** Cat ****/
 type Cat struct {
@@ -29,6 +38,15 @@ func NewCat(name string) *Cat {
 		x:     0,
 	}
 }
+func (c *Cat) Position() int {
+	return c.x
+}
+func (c *Cat) Name() string {
+	return c.name
+}
+func (c *Cat) Move() {
+	c.x += c.speed
+}
 
 /**** Owl ****/
 type Owl struct {
@@ -43,4 +61,13 @@ func NewOwl(name string) *Owl {
 		speed: 3,
 		x:     0,
 	}
+}
+func (o *Owl) Position() int {
+	return o.x
+}
+func (o *Owl) Name() string {
+	return o.name
+}
+func (o *Owl) Move() {
+	o.x += o.speed
 }
