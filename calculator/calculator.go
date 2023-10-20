@@ -51,17 +51,20 @@ func parse(input string) (*Process, error) {
 	for _, operand := range "+-*/%^" {
 		subS := strings.Split(input, string(operand))
 		if len(subS) != 1 {
-			prosses := &Process{Operand: operand}
 			var err error
-			prosses.Number1, err = strconv.ParseFloat(subS[0], 64)
+			number1, err := strconv.ParseFloat(subS[0], 64)
 			if err != nil {
 				return nil, err
 			}
-			prosses.Number2, err = strconv.ParseFloat(subS[1], 64)
+			number2, err := strconv.ParseFloat(subS[1], 64)
 			if err != nil {
 				return nil, err
 			}
-			return prosses, nil
+			return &Process{
+				Number1: number1,
+				Number2: number2,
+				Operand: operand,
+			}, nil
 		}
 	}
 	return nil, OperandError(' ')
@@ -76,6 +79,9 @@ func (p *Process) calculate() (float64, error) {
 	case '*':
 		return p.Number1 * p.Number2, nil
 	case '/':
+		if p.Number2 == 0 {
+			return 0, fmt.Errorf("dividing by 0 is not possible")
+		}
 		return p.Number1 / p.Number2, nil
 	case '^':
 		return math.Pow(p.Number1, p.Number2), nil
