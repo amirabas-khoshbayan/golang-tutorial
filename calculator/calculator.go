@@ -7,18 +7,30 @@ import (
 	"strings"
 )
 
+type OperandError rune
+
+func (opE OperandError) Error() string {
+	return fmt.Sprintf("operand %s is not valid", string(opE))
+}
+
+type Process struct {
+	Number1 float64
+	Number2 float64
+	Operand rune
+}
+
 func main() {
 	for {
 		//Get input
 		input := getInput()
-		n1, n2, op, err := parse(input)
+		process, err := parse(input)
 		if err != nil {
 			fmt.Println(err)
 			continue
 		}
 
 		//Calculate and print
-		result, err := calculate(n1, n2, op)
+		result, err := process.calculate()
 		if err != nil {
 			fmt.Println(err)
 			continue
@@ -35,39 +47,41 @@ func getInput() string {
 	fmt.Scanln(&input)
 	return input
 }
-func parse(input string) (number1, number2 float64, operand rune, err error) {
+func parse(input string) (*Process, error) {
 	for _, operand := range "+-*/%^" {
 		subS := strings.Split(input, string(operand))
 		if len(subS) != 1 {
-			number1, err := strconv.ParseFloat(subS[0], 64)
+			prosses := &Process{Operand: operand}
+			var err error
+			prosses.Number1, err = strconv.ParseFloat(subS[0], 64)
 			if err != nil {
-				return 0, 0, 0, err
+				return nil, err
 			}
-			number2, err := strconv.ParseFloat(subS[1], 64)
+			prosses.Number2, err = strconv.ParseFloat(subS[1], 64)
 			if err != nil {
-				return 0, 0, 0, err
+				return nil, err
 			}
-			return number1, number2, operand, nil
+			return prosses, nil
 		}
 	}
-	return 0, 0, 0, fmt.Errorf("operand %s is not valid", string(operand))
+	return nil, OperandError(' ')
 }
 
-func calculate(number1, number2 float64, operand rune) (float64, error) {
-	switch operand {
+func (p *Process) calculate() (float64, error) {
+	switch p.Operand {
 	case '+':
-		return number1 + number2, nil
+		return p.Number1 + p.Number2, nil
 	case '-':
-		return number1 + number2, nil
+		return p.Number1 + p.Number2, nil
 	case '*':
-		return number1 * number2, nil
+		return p.Number1 * p.Number2, nil
 	case '/':
-		return number1 / number2, nil
+		return p.Number1 / p.Number2, nil
 	case '^':
-		return math.Pow(number1, number2), nil
+		return math.Pow(p.Number1, p.Number2), nil
 	case '%':
-		return math.Mod(number1, number2), nil
+		return math.Mod(p.Number1, p.Number2), nil
 
 	}
-	return 0, fmt.Errorf("operand %s is not valid", string(operand))
+	return 0, OperandError(' ')
 }
