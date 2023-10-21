@@ -1,26 +1,25 @@
-package main
+package game
 
 import (
 	"fmt"
-	gamepkg "golang-tutorial/game"
 	"golang-tutorial/tools"
 	"time"
 )
 
 func main() {
 	//Make players
-	dog := gamepkg.NewDog("Axlie")
-	cat := gamepkg.NewCat("Binky")
-	owl := gamepkg.NewOwl("Hanna")
+	dog := NewDog("Axlie")
+	cat := NewCat("Binky")
+	owl := NewOwl("Hanna")
 
 	//Make the game
-	game := gamepkg.NewGame(50)
+	game := NewGame(50)
 
 	//Join player to the game
 	game.Join(dog).Join(cat).Join(owl)
 
 	// Loop til there is a winner
-	var winner gamepkg.Player
+	var winner Player
 	for winner == nil {
 		//Move players
 		game.MovePlayers()
