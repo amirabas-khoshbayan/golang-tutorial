@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -15,7 +16,6 @@ func main() {
 		fileName := file.Name()
 		if strings.HasSuffix(fileName, ".srt") || strings.HasSuffix(fileName, ".vtt") {
 			Process(fileName)
-			break
 		}
 	}
 }
@@ -27,6 +27,9 @@ func Process(filename string) {
 	lines := strings.Split(content, "\n")
 	words := ExtractWords(lines)
 	wordsMap := MakeWordsMap(words)
+	writeBytes, _ := json.MarshalIndent(wordsMap, "", "  ")
+	os.WriteFile(path+".json", writeBytes, 0666)
+
 	fmt.Println(wordsMap)
 }
 
@@ -53,7 +56,7 @@ func MakeWordsMap(words []string) map[string]int {
 	wordsMap := make(map[string]int, 0)
 
 	for _, word := range words {
-		word := strings.NewReplacer(",", "", ".", "", "\r", "", "\"").Replace(word)
+		word := strings.NewReplacer(",", "", ".", "", "\r", "", "\"", "").Replace(word)
 
 		if _, ok := wordsMap[word]; !ok {
 			wordsMap[word] = 0
