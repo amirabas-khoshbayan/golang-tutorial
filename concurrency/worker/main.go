@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"sync"
 	"time"
 )
 
@@ -16,25 +15,27 @@ type worker struct {
 
 func main() {
 	jobs := []string{"Job 1", "Job 2", "Job 3", "Job 4", "Job 5", "Job 6"}
+	blue, purple, orange := worker{"blue"}, worker{"purple"}, worker{"orange"}
 
-	blue := worker{"blue"}
-	purple := worker{"purple"}
-	orange := worker{"orange"}
+	doneJobs := make(chan string)
 
-	var wg sync.WaitGroup
-	wg.Add(3)
+	go blue.doJobs(jobs[:2], doneJobs)
+	go purple.doJobs(jobs[2:4], doneJobs)
+	go orange.doJobs(jobs[4:6], doneJobs)
 
-	go blue.doJobs(jobs[:2], &wg)
-	go purple.doJobs(jobs[2:4], &wg)
-	go orange.doJobs(jobs[4:6], &wg)
-	wg.Wait()
-
+	for range jobs {
+		fmt.Println(<-doneJobs)
+	}
+	//for  job := range doneJobs {
+	//	fmt.Println(job)
+	//}
 }
 
-func (w worker) doJobs(jobs []string, wg *sync.WaitGroup) {
+func (w worker) doJobs(jobs []string, doneJobs chan string) {
 	for _, job := range jobs {
 		time.Sleep(time.Second * 1)
-		fmt.Println(job, "by", w.color, "is done")
+		doneJobs <- fmt.Sprint(job, " by ", w.color, " is done")
 	}
-	wg.Done()
+	//close(doneJobs)
+
 }
