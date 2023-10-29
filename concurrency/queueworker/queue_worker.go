@@ -10,7 +10,7 @@ import (
 func main() {
 	ch := make(chan string, 1024)
 	var wg sync.WaitGroup
-	workerCount := 200
+	workerCount := 10
 
 	for i := 0; i < workerCount; i++ {
 		go worker(ch, &wg)
@@ -36,7 +36,6 @@ func worker(input <-chan string, wg *sync.WaitGroup) {
 		} else {
 			log.Printf("Get %s, StatusCode %d", url, resp.StatusCode)
 		}
-
 		wg.Done()
 	}
 }
